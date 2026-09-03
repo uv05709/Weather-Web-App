@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+.dark {
+  --background: #0b1120;
+  --foreground: #e2e8f0;
 }
 
 @theme inline {
@@ -12,15 +17,58 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Meteor animation for weather particles */
+@keyframes meteor {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(215deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-20vw) rotate(215deg);
+    opacity: 0;
+  }
+}
+
+.animate-meteor {
+  animation: meteor linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth transitions for theme switch */
+html {
+  transition: background-color 0.3s ease;
 }
