@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   const scrollToSection = (id: string) => {
@@ -52,9 +52,10 @@ export function Header() {
           <button
             onClick={toggleTheme}
             className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-white"
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <Sun className="h-5 w-5 hidden dark:block" />
+            <Moon className="h-5 w-5 block dark:hidden" />
           </button>
           <a
             href="https://github.com"
@@ -72,9 +73,10 @@ export function Header() {
           <button
             onClick={toggleTheme}
             className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800"
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <Sun className="h-5 w-5 hidden dark:block" />
+            <Moon className="h-5 w-5 block dark:hidden" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
