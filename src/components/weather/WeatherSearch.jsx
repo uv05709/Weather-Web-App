@@ -1,18 +1,13 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { Search, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface WeatherSearchProps {
-  onSearch: (city: string) => void;
-  loading: boolean;
-}
-
-export function WeatherSearch({ onSearch, loading }: WeatherSearchProps) {
+export function WeatherSearch({ onSearch, loading }) {
   const [query, setQuery] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim() && !loading) {
       onSearch(query.trim());
@@ -49,11 +44,7 @@ export function WeatherSearch({ onSearch, loading }: WeatherSearchProps) {
           )}
           aria-label="Search"
         >
-          {loading ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <Search className="h-5 w-5" />
-          )}
+          {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
         </button>
       </div>
     </form>

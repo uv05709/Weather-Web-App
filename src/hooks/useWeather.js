@@ -7,22 +7,21 @@ import {
   getWeatherByCoordinates,
   getForecastByCoordinates,
 } from "@/lib/weather-api";
-import { CurrentWeather, ForecastDay, FavoriteCity, TemperatureUnit, WeatherError } from "@/types/weather";
 import { useLocalStorage } from "./useLocalStorage";
 
 const MAX_RECENT_SEARCHES = 5;
 
 export function useWeather() {
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
-  const [forecast, setForecast] = useState<ForecastDay[]>([]);
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<WeatherError | null>(null);
-  const [unit, setUnit] = useLocalStorage<TemperatureUnit>("weather-unit", "celsius");
-  const [recentSearches, setRecentSearches] = useLocalStorage<string[]>("recent-searches", []);
-  const [favorites, setFavorites] = useLocalStorage<FavoriteCity[]>("favorite-cities", []);
+  const [error, setError] = useState(null);
+  const [unit, setUnit] = useLocalStorage("weather-unit", "celsius");
+  const [recentSearches, setRecentSearches] = useLocalStorage("recent-searches", []);
+  const [favorites, setFavorites] = useLocalStorage("favorite-cities", []);
 
   const addRecentSearch = useCallback(
-    (city: string) => {
+    (city) => {
       setRecentSearches((prev) => {
         const filtered = prev.filter((c) => c.toLowerCase() !== city.toLowerCase());
         return [city, ...filtered].slice(0, MAX_RECENT_SEARCHES);
@@ -36,7 +35,7 @@ export function useWeather() {
   }, [setRecentSearches]);
 
   const searchCity = useCallback(
-    async (city: string) => {
+    async (city) => {
       const trimmed = city.trim();
       if (!trimmed) {
         setError({ type: "not-found", message: "Please enter a city name." });
@@ -55,10 +54,9 @@ export function useWeather() {
         setForecast(forecastData);
         addRecentSearch(weather.city);
       } catch (err) {
-        const apiError = err as { type?: string; message?: string };
         setError({
-          type: (apiError.type as WeatherError["type"]) ?? "unknown",
-          message: apiError.message ?? "An unexpected error occurred.",
+          type: err.type ?? "unknown",
+          message: err.message ?? "An unexpected error occurred.",
         });
         setCurrentWeather(null);
         setForecast([]);
@@ -70,7 +68,7 @@ export function useWeather() {
   );
 
   const searchByCoordinates = useCallback(
-    async (lat: number, lon: number) => {
+    async (lat, lon) => {
       setLoading(true);
       setError(null);
 
@@ -83,10 +81,9 @@ export function useWeather() {
         setForecast(forecastData);
         addRecentSearch(weather.city);
       } catch (err) {
-        const apiError = err as { type?: string; message?: string };
         setError({
-          type: (apiError.type as WeatherError["type"]) ?? "unknown",
-          message: apiError.message ?? "An unexpected error occurred.",
+          type: err.type ?? "unknown",
+          message: err.message ?? "An unexpected error occurred.",
         });
         setCurrentWeather(null);
         setForecast([]);
@@ -98,7 +95,7 @@ export function useWeather() {
   );
 
   const toggleFavorite = useCallback(
-    (city: string, country: string) => {
+    (city, country) => {
       setFavorites((prev) => {
         const exists = prev.some((f) => f.name.toLowerCase() === city.toLowerCase());
         if (exists) {
@@ -111,21 +108,21 @@ export function useWeather() {
   );
 
   const removeFavorite = useCallback(
-    (city: string) => {
+    (city) => {
       setFavorites((prev) => prev.filter((f) => f.name.toLowerCase() !== city.toLowerCase()));
     },
     [setFavorites]
   );
 
   const isFavorite = useCallback(
-    (city: string) => {
+    (city) => {
       return favorites.some((f) => f.name.toLowerCase() === city.toLowerCase());
     },
     [favorites]
   );
 
   const convertTemp = useCallback(
-    (tempCelsius: number): number => {
+    (tempCelsius) => {
       if (unit === "fahrenheit") {
         return Math.round((tempCelsius * 9) / 5 + 32);
       }

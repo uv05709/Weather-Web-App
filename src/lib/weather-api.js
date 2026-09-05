@@ -1,8 +1,6 @@
-import { CurrentWeather, ForecastDay } from "@/types/weather";
-
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
-function getApiKey(): string {
+function getApiKey() {
   const key = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
   if (!key || key === "your_api_key_here") {
     throw new ApiError(
@@ -14,19 +12,14 @@ function getApiKey(): string {
 }
 
 class ApiError extends Error {
-  type: "not-found" | "network" | "api-key" | "rate-limit" | "unknown";
-
-  constructor(
-    type: "not-found" | "network" | "api-key" | "rate-limit" | "unknown",
-    message: string
-  ) {
+  constructor(type, message) {
     super(message);
     this.type = type;
     this.name = "ApiError";
   }
 }
 
-async function handleResponse(response: Response): Promise<Record<string, unknown>> {
+async function handleResponse(response) {
   if (response.ok) {
     return response.json();
   }
@@ -43,8 +36,7 @@ async function handleResponse(response: Response): Promise<Record<string, unknow
   }
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function parseCurrentWeather(data: any): CurrentWeather {
+function parseCurrentWeather(data) {
   return {
     city: data.name,
     country: data.sys?.country ?? "",
@@ -67,8 +59,8 @@ function parseCurrentWeather(data: any): CurrentWeather {
   };
 }
 
-function parseForecast(data: any): ForecastDay[] {
-  const dailyMap = new Map<string, { temps: number[]; humidities: number[]; pops: number[]; weather: any }>();
+function parseForecast(data) {
+  const dailyMap = new Map();
 
   for (const item of data.list) {
     const date = item.dt_txt.split(" ")[0];
@@ -82,22 +74,21 @@ function parseForecast(data: any): ForecastDay[] {
       });
     }
 
-    const day = dailyMap.get(date)!;
+    const day = dailyMap.get(date);
     day.temps.push(item.main.temp);
     day.humidities.push(item.main.humidity);
     day.pops.push(item.pop ?? 0);
 
-    // Use midday weather as representative (12:00 reading)
     if (item.dt_txt.includes("12:00:00")) {
       day.weather = item.weather[0];
     }
   }
 
-  const days: ForecastDay[] = [];
+  const days = [];
   const today = new Date().toISOString().split("T")[0];
 
   for (const [date, day] of dailyMap) {
-    if (date === today) continue; // Skip today
+    if (date === today) continue;
     if (days.length >= 5) break;
 
     days.push({
@@ -115,9 +106,8 @@ function parseForecast(data: any): ForecastDay[] {
 
   return days;
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function getCurrentWeather(city: string): Promise<CurrentWeather> {
+export async function getCurrentWeather(city) {
   try {
     const apiKey = getApiKey();
     const response = await fetch(
@@ -131,7 +121,7 @@ export async function getCurrentWeather(city: string): Promise<CurrentWeather> {
   }
 }
 
-export async function getForecast(city: string): Promise<ForecastDay[]> {
+export async function getForecast(city) {
   try {
     const apiKey = getApiKey();
     const response = await fetch(
@@ -145,7 +135,7 @@ export async function getForecast(city: string): Promise<ForecastDay[]> {
   }
 }
 
-export async function getWeatherByCoordinates(lat: number, lon: number): Promise<CurrentWeather> {
+export async function getWeatherByCoordinates(lat, lon) {
   try {
     const apiKey = getApiKey();
     const response = await fetch(
@@ -159,7 +149,7 @@ export async function getWeatherByCoordinates(lat: number, lon: number): Promise
   }
 }
 
-export async function getForecastByCoordinates(lat: number, lon: number): Promise<ForecastDay[]> {
+export async function getForecastByCoordinates(lat, lon) {
   try {
     const apiKey = getApiKey();
     const response = await fetch(
@@ -173,7 +163,7 @@ export async function getForecastByCoordinates(lat: number, lon: number): Promis
   }
 }
 
-export function isApiKeyConfigured(): boolean {
+export function isApiKeyConfigured() {
   const key = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
   return Boolean(key && key !== "your_api_key_here");
 }

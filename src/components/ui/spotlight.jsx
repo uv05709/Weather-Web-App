@@ -4,21 +4,16 @@ import { useEffect, useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface SpotlightProps {
-  className?: string;
-  fill?: string;
-}
-
-export function Spotlight({ className, fill = "white" }: SpotlightProps) {
+export function Spotlight({ className, fill = "white" }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
 
   const springX = useSpring(mouseX, { damping: 30, stiffness: 200 });
   const springY = useSpring(mouseY, { damping: 30, stiffness: 200 });
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       mouseX.set(e.clientX - rect.left);

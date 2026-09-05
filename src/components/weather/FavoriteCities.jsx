@@ -1,15 +1,8 @@
 "use client";
 
 import { Heart, X, MapPin } from "lucide-react";
-import { FavoriteCity } from "@/types/weather";
 
-interface FavoriteCitiesProps {
-  favorites: FavoriteCity[];
-  onSearch: (city: string) => void;
-  onRemove: (city: string) => void;
-}
-
-export function FavoriteCities({ favorites, onSearch, onRemove }: FavoriteCitiesProps) {
+export function FavoriteCities({ favorites, onSearch, onRemove }) {
   if (favorites.length === 0) {
     return (
       <section id="favorites-section" aria-label="Favorite Cities" className="w-full max-w-4xl">
@@ -19,9 +12,7 @@ export function FavoriteCities({ favorites, onSearch, onRemove }: FavoriteCities
         </div>
         <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50/50 p-8 text-center dark:border-slate-600 dark:bg-slate-800/30">
           <Heart className="mx-auto h-8 w-8 text-gray-300 dark:text-gray-600" />
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            No favorite cities yet. Click the heart icon on a weather card to save cities.
-          </p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">No favorite cities yet. Click the heart icon on a weather card to save cities.</p>
         </div>
       </section>
     );
@@ -50,10 +41,7 @@ export function FavoriteCities({ favorites, onSearch, onRemove }: FavoriteCities
               <p className="text-xs text-gray-500 dark:text-gray-400">{city.country}</p>
             </div>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemove(city.name);
-              }}
+              onClick={(e) => { e.stopPropagation(); onRemove(city.name); }}
               className="rounded-full p-1 text-gray-400 opacity-0 transition-all duration-200 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100 dark:hover:bg-red-500/10"
               aria-label={`Remove ${city.name} from favorites`}
             >

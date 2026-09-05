@@ -2,13 +2,7 @@
 
 import { Clock, Trash2, Search } from "lucide-react";
 
-interface RecentSearchesProps {
-  searches: string[];
-  onSearch: (city: string) => void;
-  onClear: () => void;
-}
-
-export function RecentSearches({ searches, onSearch, onClear }: RecentSearchesProps) {
+export function RecentSearches({ searches, onSearch, onClear }) {
   if (searches.length === 0) return null;
 
   return (

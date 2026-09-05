@@ -1,10 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface SkeletonProps {
-  className?: string;
-}
-
-export function Skeleton({ className }: SkeletonProps) {
+export function Skeleton({ className }) {
   return (
     <div
       className={cn(

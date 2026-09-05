@@ -44,11 +44,9 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Dynamic Weather Background */}
       <WeatherBackground weatherMain={currentWeather?.weatherMain} />
 
       <div className="relative flex flex-col items-center">
-        {/* Hero Section */}
         <section className="relative flex w-full flex-col items-center px-4 pt-12 pb-8 sm:pt-16 sm:pb-12">
           <Spotlight className="hidden md:block" fill="rgba(59, 130, 246, 0.15)" />
 
@@ -59,16 +57,13 @@ export default function HomePage() {
             </div>
             <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
               Weather, at a{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                glance.
-              </span>
+              <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">glance.</span>
             </h1>
             <p className="mt-4 max-w-lg text-base text-gray-600 dark:text-gray-300 sm:text-lg">
               Get real-time weather information and forecasts for any location.
             </p>
           </div>
 
-          {/* Search + Controls */}
           <div className="mt-8 flex w-full flex-col items-center gap-4">
             <WeatherSearch onSearch={searchCity} loading={loading} />
             <div className="flex flex-wrap items-center justify-center gap-3">
@@ -78,15 +73,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Weather Content */}
         <section className="flex w-full flex-col items-center gap-8 px-4 pb-12">
-          {/* Loading State */}
           {loading && <LoadingWeather />}
-
-          {/* Error State */}
           {error && !loading && <WeatherError error={error} onRetry={handleRetry} />}
 
-          {/* Weather Data */}
           {currentWeather && !loading && !error && (
             <>
               <CurrentWeatherCard
@@ -96,46 +86,26 @@ export default function HomePage() {
                 isFavorite={isFavorite(currentWeather.city)}
                 onToggleFavorite={() => toggleFavorite(currentWeather.city, currentWeather.country)}
               />
-              <WeatherStats
-                weather={currentWeather}
-                convertTemp={convertTemp}
-                tempSymbol={tempSymbol}
-              />
-              <Forecast
-                forecast={forecast}
-                convertTemp={convertTemp}
-                tempSymbol={tempSymbol}
-              />
+              <WeatherStats weather={currentWeather} convertTemp={convertTemp} tempSymbol={tempSymbol} />
+              <Forecast forecast={forecast} convertTemp={convertTemp} tempSymbol={tempSymbol} />
             </>
           )}
 
-          {/* Empty State */}
           {!currentWeather && !loading && !error && (
             <div className="flex flex-col items-center py-12 text-center">
               <div className="rounded-full bg-gray-100 p-4 dark:bg-slate-800">
                 <Search className="h-8 w-8 text-gray-400 dark:text-gray-500" />
               </div>
-              <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
-                Search for a city
-              </h2>
+              <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Search for a city</h2>
               <p className="mt-1 max-w-sm text-sm text-gray-500 dark:text-gray-400">
                 Enter a city name to see current weather and forecasts, or use your current location.
               </p>
             </div>
           )}
 
-          {/* Favorites & Recent Searches */}
           <div className="flex w-full flex-col items-center gap-8">
-            <FavoriteCities
-              favorites={favorites}
-              onSearch={searchCity}
-              onRemove={removeFavorite}
-            />
-            <RecentSearches
-              searches={recentSearches}
-              onSearch={searchCity}
-              onClear={clearRecentSearches}
-            />
+            <FavoriteCities favorites={favorites} onSearch={searchCity} onRemove={removeFavorite} />
+            <RecentSearches searches={recentSearches} onSearch={searchCity} onClear={clearRecentSearches} />
           </div>
         </section>
       </div>

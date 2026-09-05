@@ -2,12 +2,12 @@
 
 import { useSyncExternalStore, useCallback } from "react";
 
-export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
+export function useLocalStorage(key, initialValue) {
   const serializedInitial = JSON.stringify(initialValue);
 
   const subscribe = useCallback(
-    (callback: () => void) => {
-      const storageHandler = (e: StorageEvent) => {
+    (callback) => {
+      const storageHandler = (e) => {
         if (e.key === key) callback();
       };
       window.addEventListener("storage", storageHandler);
@@ -37,18 +37,18 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
 
   const rawValue = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  let value: T;
+  let value;
   try {
-    value = JSON.parse(rawValue) as T;
+    value = JSON.parse(rawValue);
   } catch {
     value = initialValue;
   }
 
   const setValue = useCallback(
-    (newValue: T | ((prev: T) => T)) => {
+    (newValue) => {
       try {
         const currentRaw = window.localStorage.getItem(key);
-        const current = currentRaw ? (JSON.parse(currentRaw) as T) : initialValue;
+        const current = currentRaw ? JSON.parse(currentRaw) : initialValue;
         const resolved = newValue instanceof Function ? newValue(current) : newValue;
         window.localStorage.setItem(key, JSON.stringify(resolved));
         window.dispatchEvent(new Event(`ls-update-${key}`));

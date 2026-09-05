@@ -3,13 +3,6 @@
 import { cn } from "@/lib/utils";
 import { useSyncExternalStore } from "react";
 
-interface MeteorsProps {
-  number?: number;
-  className?: string;
-  speed?: "slow" | "medium" | "fast";
-}
-
-// Pre-generate random seeds at module level to avoid impure calls during render
 const METEOR_SEEDS = Array.from({ length: 50 }, () => ({
   leftSeed: Math.random(),
   delaySeed: Math.random(),
@@ -17,19 +10,17 @@ const METEOR_SEEDS = Array.from({ length: 50 }, () => ({
   sizeSeed: Math.random(),
 }));
 
-// React 19 idiomatic way to detect client-side rendering
 const emptySubscribe = () => () => {};
 function useIsClient() {
   return useSyncExternalStore(emptySubscribe, () => true, () => false);
 }
 
-export function Meteors({ number = 20, className, speed = "medium" }: MeteorsProps) {
+export function Meteors({ number = 20, className, speed = "medium" }) {
   const isClient = useIsClient();
 
   const speedMap = { slow: 8, medium: 4, fast: 2 };
   const baseDuration = speedMap[speed];
 
-  // Derive meteor styles from pre-generated seeds — pure during render
   const meteors = METEOR_SEEDS.slice(0, number).map((seed, i) => ({
     id: i,
     left: `${seed.leftSeed * 100}%`,
@@ -40,7 +31,6 @@ export function Meteors({ number = 20, className, speed = "medium" }: MeteorsPro
 
   if (!isClient) return null;
 
-  // Respect reduced motion preference
   const prefersReducedMotion =
     window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 

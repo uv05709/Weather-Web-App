@@ -1,43 +1,16 @@
 "use client";
 
 import { AlertCircle, WifiOff, KeyRound, Clock, HelpCircle, RefreshCw } from "lucide-react";
-import { WeatherError as WeatherErrorType } from "@/types/weather";
-import { type LucideIcon } from "lucide-react";
 
-interface WeatherErrorProps {
-  error: WeatherErrorType;
-  onRetry?: () => void;
-}
-
-const errorConfig: Record<WeatherErrorType["type"], { icon: LucideIcon; title: string; color: string }> = {
-  "not-found": {
-    icon: AlertCircle,
-    title: "City Not Found",
-    color: "text-amber-500",
-  },
-  network: {
-    icon: WifiOff,
-    title: "Connection Error",
-    color: "text-red-500",
-  },
-  "api-key": {
-    icon: KeyRound,
-    title: "API Key Required",
-    color: "text-purple-500",
-  },
-  "rate-limit": {
-    icon: Clock,
-    title: "Too Many Requests",
-    color: "text-orange-500",
-  },
-  unknown: {
-    icon: HelpCircle,
-    title: "Something Went Wrong",
-    color: "text-gray-500",
-  },
+const errorConfig = {
+  "not-found": { icon: AlertCircle, title: "City Not Found", color: "text-amber-500" },
+  network: { icon: WifiOff, title: "Connection Error", color: "text-red-500" },
+  "api-key": { icon: KeyRound, title: "API Key Required", color: "text-purple-500" },
+  "rate-limit": { icon: Clock, title: "Too Many Requests", color: "text-orange-500" },
+  unknown: { icon: HelpCircle, title: "Something Went Wrong", color: "text-gray-500" },
 };
 
-export function WeatherError({ error, onRetry }: WeatherErrorProps) {
+export function WeatherError({ error, onRetry }) {
   const config = errorConfig[error.type] ?? errorConfig.unknown;
   const Icon = config.icon;
 
@@ -60,10 +33,7 @@ export function WeatherError({ error, onRetry }: WeatherErrorProps) {
       )}
 
       {onRetry && error.type !== "api-key" && (
-        <button
-          onClick={onRetry}
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-slate-800"
-        >
+        <button onClick={onRetry} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-slate-800">
           <RefreshCw className="h-4 w-4" />
           Try Again
         </button>
