@@ -20,8 +20,16 @@ export function CurrentWeatherCard({ weather, convertTemp, tempSymbol, isFavorit
   const gradient = weatherGradients[weather.weatherMain] ?? weatherGradients.Clear;
 
   return (
-    <MovingBorder containerClassName="w-full max-w-2xl" className="p-0">
-      <div className={cn("relative overflow-hidden rounded-2xl bg-gradient-to-br p-6 sm:p-8", gradient)}>
+    <MovingBorder containerClassName="w-full max-w-4xl" className="p-0">
+      <div
+        id="current-weather"
+        className={cn(
+          "relative overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-5 shadow-2xl shadow-blue-500/5 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-900/70 sm:p-8",
+          gradient
+        )}
+      >
+        {/* Ambient top light glass glare */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent dark:via-white/20" />
         <div className="flex items-start justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
@@ -42,13 +50,13 @@ export function CurrentWeatherCard({ weather, convertTemp, tempSymbol, isFavorit
           </button>
         </div>
 
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-6 flex items-center justify-between gap-4">
           <div>
-            <div className="text-6xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-7xl">
+            <div className="text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-7xl">
               {convertTemp(weather.temp)}
-              <span className="text-3xl font-normal text-gray-500 dark:text-gray-400 sm:text-4xl">{tempSymbol}</span>
+              <span className="text-2xl font-normal text-gray-500 dark:text-gray-400 sm:text-4xl">{tempSymbol}</span>
             </div>
-            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-600 dark:text-gray-300">
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <span>Feels like {convertTemp(weather.feelsLike)}{tempSymbol}</span>
               <span>↑ {convertTemp(weather.tempMax)}{tempSymbol}</span>
               <span>↓ {convertTemp(weather.tempMin)}{tempSymbol}</span>
@@ -57,7 +65,7 @@ export function CurrentWeatherCard({ weather, convertTemp, tempSymbol, isFavorit
           <WeatherIcon code={weather.weatherIcon} size="xl" />
         </div>
 
-        <div className="mt-6 grid grid-cols-3 gap-3 rounded-xl border border-gray-200/50 bg-white/40 p-3 backdrop-blur-sm dark:border-slate-600/30 dark:bg-slate-800/40">
+        <div className="mt-6 grid grid-cols-3 gap-3 rounded-2xl border border-white/60 bg-white/50 p-3.5 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-800/50">
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400">Humidity</p>
             <p className="text-sm font-semibold text-gray-900 dark:text-white">{weather.humidity}%</p>

@@ -11,32 +11,42 @@ export function Footer() {
               <span className="font-semibold text-gray-900 dark:text-white">WeatherNow</span>
             </div>
             <p className="text-center text-xs text-gray-500 dark:text-gray-400 sm:text-left">
-              B.Tech CSE Mini Project • Real-Time Weather Forecast
+              Real-time atmospheric insights, meteorological forecasts & global radar data.
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+            <a
+              href="#current-weather"
+              className="transition-colors hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              Current Conditions
+            </a>
+            <a
+              href="#forecast-section"
+              className="transition-colors hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              5-Day Forecast
+            </a>
+            <a
+              href="#favorites-section"
+              className="transition-colors hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              Saved Locations
+            </a>
             <a
               href="https://openweathermap.org/api"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-gray-500 transition-colors hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
+              className="inline-flex items-center gap-1 transition-colors hover:text-blue-500 dark:hover:text-blue-400"
             >
-              Weather data by OpenWeatherMap
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-              aria-label="View source on GitHub"
-            >
-              <ExternalLink className="h-4 w-4" />
+              Data via OpenWeatherMap
+              <ExternalLink className="h-3 w-3" />
             </a>
           </div>
         </div>
         <div className="mt-6 border-t border-gray-200/50 pt-4 text-center dark:border-slate-700/50">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            © {new Date().getFullYear()} WeatherNow. Built with Next.js, React & Tailwind CSS.
+            © {new Date().getFullYear()} WeatherNow. Global meteorological conditions updated in real time.
           </p>
         </div>
       </div>

@@ -6,8 +6,8 @@ export function Forecast({ forecast, convertTemp, tempSymbol }) {
   if (forecast.length === 0) return null;
 
   return (
-    <section aria-label="5-Day Forecast" className="w-full max-w-4xl">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">5-Day Forecast</h3>
+    <section id="forecast-section" aria-label="5-Day Meteorological Forecast" className="w-full max-w-4xl">
+      <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">5-Day Forecast</h2>
       <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-5 sm:overflow-visible">
         {forecast.map((day) => (
           <ForecastCard key={day.date} day={day} convertTemp={convertTemp} tempSymbol={tempSymbol} />

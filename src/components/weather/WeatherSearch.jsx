@@ -15,20 +15,23 @@ export function WeatherSearch({ onSearch, loading }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-xl" role="search" aria-label="Search for a city">
+    <form id="weather-search" onSubmit={handleSubmit} className="w-full max-w-xl" role="search" aria-label="Search for a city">
       <div className="relative">
+        <label htmlFor="city-search" className="sr-only">
+          Search for a city
+        </label>
         <input
           id="city-search"
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder='Search for a city... e.g. "Varanasi"'
+          placeholder='Search for a city... e.g. "Tokyo", "London"'
           disabled={loading}
           className={cn(
-            "w-full rounded-2xl border border-gray-200 bg-white/90 py-4 pr-14 pl-5 text-base text-gray-900 shadow-lg shadow-blue-500/5 backdrop-blur-sm transition-all duration-300",
+            "w-full rounded-2xl border border-white/60 bg-white/75 py-4 pr-14 pl-5 text-base text-gray-900 shadow-xl shadow-blue-500/5 backdrop-blur-2xl transition-all duration-300",
             "placeholder:text-gray-400",
-            "focus:border-blue-400 focus:shadow-blue-500/10 focus:ring-2 focus:ring-blue-400/20 focus:outline-none",
-            "dark:border-slate-600 dark:bg-slate-800/90 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500/20",
+            "focus:border-blue-400 focus:shadow-blue-500/15 focus:ring-2 focus:ring-blue-400/20 focus:outline-none",
+            "dark:border-white/10 dark:bg-slate-900/75 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500/20",
             "disabled:opacity-60"
           )}
           aria-label="City name"

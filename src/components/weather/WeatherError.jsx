@@ -20,14 +20,12 @@ export function WeatherError({ error, onRetry }) {
       <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">{config.title}</h3>
       <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{error.message}</p>
 
-      {error.type === "api-key" && (
+      {error.type === "api-key" && process.env.NODE_ENV === "development" && (
         <div className="mt-4 rounded-lg bg-gray-100 p-3 text-left text-xs dark:bg-slate-700">
-          <p className="font-medium text-gray-700 dark:text-gray-200">Setup Instructions:</p>
+          <p className="font-medium text-gray-700 dark:text-gray-200">Developer Notice:</p>
           <ol className="mt-1 list-inside list-decimal space-y-1 text-gray-600 dark:text-gray-300">
-            <li>Get a free API key from openweathermap.org</li>
-            <li>Create a <code className="rounded bg-gray-200 px-1 dark:bg-slate-600">.env.local</code> file</li>
-            <li>Add <code className="rounded bg-gray-200 px-1 dark:bg-slate-600">NEXT_PUBLIC_OPENWEATHER_API_KEY=your_key</code></li>
-            <li>Restart the dev server</li>
+            <li>Obtain an API key from openweathermap.org</li>
+            <li>Set NEXT_PUBLIC_OPENWEATHER_API_KEY in your environment</li>
           </ol>
         </div>
       )}

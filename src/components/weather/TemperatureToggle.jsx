@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export function TemperatureToggle({ unit, onToggle }) {
   return (
-    <div className="flex items-center rounded-xl border border-gray-200 bg-white/80 p-1 backdrop-blur-sm dark:border-slate-600 dark:bg-slate-800/80" role="radiogroup" aria-label="Temperature unit">
+    <div className="flex items-center rounded-xl border border-white/60 bg-white/70 p-1 shadow-md shadow-blue-500/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70" role="radiogroup" aria-label="Temperature unit">
       <button
         onClick={() => onToggle("celsius")}
         className={cn(

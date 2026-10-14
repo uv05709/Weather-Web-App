@@ -1,0 +1,21 @@
+# WeatherNow
+
+> WeatherNow is a modern, real-time global weather web application providing accurate meteorological data, live atmospheric conditions, and 5-day weather forecasts for cities worldwide.
+
+- **Website**: https://weather-web-app-eight-beryl.vercel.app/
+- **Data Provider**: OpenWeatherMap API
+- **Application Type**: Real-Time Weather Forecast & Meteorological Dashboard
+- **License / Usage**: Free public web access
+
+## Core Features
+- **Real-Time Weather**: Current temperature, "feels like" index, daily high/low temperatures, weather conditions, atmospheric pressure, relative humidity, and wind speed.
+- **5-Day Meteorological Forecast**: Projections with daily precipitation probability, minimum/maximum temperature ranges, and weather summaries.
+- **Global Search & Geolocation**: Instant search for any city globally or automatic detection via browser geolocation coordinates.
+- **Temperature Units**: Seamless one-click conversion between Celsius (°C) and Fahrenheit (°F).
+- **Favorites & Search History**: Client-side storage for frequently checked locations and recent searches.
+- **Adaptive Visual Themes**: Dynamic background gradients that reflect current atmospheric conditions (clear, rain, snow, clouds, thunderstorm) with full light and dark mode support.
+
+## Key Pages & Endpoints
+- Homepage & Live Forecast: https://weather-web-app-eight-beryl.vercel.app/
+- Sitemap: https://weather-web-app-eight-beryl.vercel.app/sitemap.xml
+- Robots Configuration: https://weather-web-app-eight-beryl.vercel.app/robots.txt

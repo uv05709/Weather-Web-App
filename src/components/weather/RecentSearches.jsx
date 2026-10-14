@@ -9,8 +9,8 @@ export function RecentSearches({ searches, onSearch, onClear }) {
     <section aria-label="Recent Searches" className="w-full max-w-4xl">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Clock className="h-4 w-4 text-gray-400" />
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Recent Searches</h3>
+          <Clock className="h-4 w-4 text-gray-400" aria-hidden="true" />
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Recent Searches</h2>
         </div>
         <button
           onClick={onClear}
@@ -26,7 +26,7 @@ export function RecentSearches({ searches, onSearch, onClear }) {
           <button
             key={city}
             onClick={() => onSearch(city)}
-            className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/80 px-3 py-1.5 text-sm text-gray-600 backdrop-blur-sm transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-600 dark:bg-slate-800/80 dark:text-gray-300 dark:hover:border-blue-500 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
+            className="flex items-center gap-1.5 rounded-full border border-white/60 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-sm shadow-blue-500/5 backdrop-blur-xl transition-all duration-300 hover:border-blue-400/50 hover:bg-white/90 hover:text-blue-600 hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-gray-300 dark:hover:border-blue-500/30 dark:hover:bg-slate-800/80 dark:hover:text-blue-400"
             aria-label={`Search ${city} again`}
           >
             <Search className="h-3 w-3" />
